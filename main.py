@@ -16,6 +16,9 @@ class Scene:
         }
         self.dims = dims
         self.edge_mode = edge_mode
+        self.gravity_constant = Scalar(0.1)
+        self.drag = 1
+        self.tiny = 0.00000000001
     def add(self, obj):
         self.objects.append(obj)
         return obj
