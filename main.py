@@ -257,6 +257,16 @@ class Object:
     def info(self):
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
+class Cluster:
+    def __init__(self):
+        self.objects = []
+
+class World:
+    def __init__(self, dims):
+        self.stuff = []
+        self.dims = dims
+    def snap():
+        self.stuff = []
 
 print(Vec([50, 25]).x)
 sim = Scene(dims=Vec([50, 25])).randomize(num=10)
