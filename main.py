@@ -94,13 +94,24 @@ class Vec:
         self.y = abs(self.y)
         return self
     def sub(self, b):
-        self.x -= b.x
-        self.y -= b.y
+        self.op(b, lambda a, b: a - b)
         return self
     def add(self, b):
-        self.x += b.x
-        self.y += b.y
+        self.op(b, lambda a, b: a + b)
         return self
+    def div(self, b):
+        self.op(b, lambda a, b: a / b)
+        return self
+    def mul(self, b):
+        self.op(b, lambda a, b: a * b)
+        return self
+    def op(self, b, f):
+        if type(b) is Vec:
+            self.x = f(self.x, b.x)
+            self.y = f(self.y, b.y)
+        elif type(b) is Scalar:
+            self.x = f(self.x, b.n)
+            self.y = f(self.y, b.n)
     def each(self, f):
         return Vec(v=tuple(f(n) for n in self.tuple()))
     def square(self):
