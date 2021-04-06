@@ -14,17 +14,19 @@ class Scene:
         self.objects.append(obj)
         return obj
     def at(self, x, y):
-        return list(filter(lambda o: o.x == x and o.y == y, self.objects))
+        return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
     def dot(self, m):
         if m > 0:
             return self.default_char
         else:
             return self.empty
-    def render(self):
-        console.clear()
-        console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, 20)]) for y in range(0, 20)]))
-
-        console.refresh()
+    def render(self, frames=1, delay=0.1):
+        for frame in range(frames):
+            console.clear()
+            console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, 20)]) for y in range(0, 20)]))
+            time.sleep(delay)
+            console.refresh()
+            self.step(steps=1)
     def clear(self):
         self.objects = []
     def step(self, steps=1):
