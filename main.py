@@ -45,6 +45,16 @@ class Scene:
             pass
         elif self.edge_mode == 'extend':
             pass
+    def gravity(self, obj):
+        pass
+        # for o in self.objects:
+        #     dist = obj.pos.distance2(o.pos)
+        #     if dist == 0:
+        #         dist = self.tiny
+            # obj.vel.x += (self.gravity_constant * obj.mass * o.mass / (dist ** 2)) / obj.mass
+            # TODO: address mutability
+            # TODO: mass 1 should cancel out
+            # obj.vel.add(self.gravity_constant.mul(obj.mass).mul(o.mass).div(dist.square())).div(obj.mass)
     def clear(self):
         self.objects = []
     def step(self, steps=1, step_length=1):
