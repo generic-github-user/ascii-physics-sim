@@ -2,6 +2,7 @@ import os
 import time
 import random
 import curses
+import numpy as np
 
 console = curses.initscr()
 
@@ -68,6 +69,14 @@ class Scene:
                 self.edge_collision(o)
                 # make sure to actually call this...
                 self.gravity(o)
+
+class Tensor:
+    def __init__(self, n, units=''):
+        self.n = np.array(n)
+        self.forces = []
+        self.units = units
+    def __repr__(self):
+        return self.n
 
 # TODO: generalize
 class Scalar:
