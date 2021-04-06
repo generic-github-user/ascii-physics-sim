@@ -80,25 +80,9 @@ class Tensor:
 
 # TODO: generalize
 class Scalar:
-    def __init__(self, n=None, units=''):
+    def __init__(self, n, units=''):
         self.n = n
         self.units = units
-    def root(self, n):
-        return Scalar(self.n ** (1/n))
-    def pow(self, n):
-        return Scalar(self.n ** n)
-    def sub(self, b):
-        self.op(b, lambda a, b: a - b)
-        return self
-    def add(self, b):
-        self.op(b, lambda a, b: a + b)
-        return self
-    def div(self, b):
-        self.op(b, lambda a, b: a / b)
-        return self
-    def mul(self, b):
-        self.op(b, lambda a, b: a * b)
-        return self
     # reuse vector operations (?)
     def op(self, b, f):
         m = self.n
@@ -135,22 +119,6 @@ class Vec:
     def clone(self):
         # return Vec(x=self.x, y=self.y)
         return Vec(v=self.tuple())
-    def abs(self):
-        self.x = abs(self.x)
-        self.y = abs(self.y)
-        return self
-    def sub(self, b):
-        self.op(b, lambda a, b: a - b)
-        return self
-    def add(self, b):
-        self.op(b, lambda a, b: a + b)
-        return self
-    def div(self, b):
-        self.op(b, lambda a, b: a / b)
-        return self
-    def mul(self, b):
-        self.op(b, lambda a, b: a * b)
-        return self
     def op(self, b, f):
         if type(b) is Vec:
             self.x = f(self.x, b.x)
