@@ -76,7 +76,7 @@ def random_scene():
     for i in range(20):
         x = random.randint(0, 20)
         y = random.randint(0, 20)
-        sim.add(obj=Object(x, y))
+        sim.add(obj=Object(x, y, Vec().rand(-2, 2, float=True)))
 
 random_scene()
 sim.render()
