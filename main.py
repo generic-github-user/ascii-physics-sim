@@ -61,11 +61,12 @@ class Vec:
 
 
 class Object:
-    def __init__(self, x, y):
+    def __init__(self, x, y, vel):
         self.x = x
         self.y = y
+        self.vel = vel
     def info(self):
-        return '\n'.join(str(n) for n in [self.x, self.y])
+        return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
 sim = Scene()
 def random_scene():
