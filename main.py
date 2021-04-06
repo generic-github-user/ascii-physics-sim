@@ -195,3 +195,8 @@ sim.render(frames=300)
 curses.endwin()
 
 print(sim.objects[0].info())
+print(Vec((0, 0)).distance(Vec((3, 4))).n)
+obj = sim.objects[0]
+o = sim.objects[1]
+print(obj.pos.distance(o.pos).n ** 2)
+print((1000 * obj.mass * o.mass / (obj.pos.distance(o.pos).n ** 2)) / obj.mass)
