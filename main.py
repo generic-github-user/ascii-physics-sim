@@ -6,7 +6,7 @@ import curses
 console = curses.initscr()
 
 class Scene:
-    def __init__(self, dims):
+    def __init__(self, dims, edge_mode='wrap'):
         self.objects = []
         self.default_char = 'o'
         self.empty = ' '
@@ -15,7 +15,7 @@ class Scene:
             'time': 's'
         }
         self.dims = dims
-        # self.edges = 'wrap'
+        self.edge_mode = edge_mode
     def add(self, obj):
         self.objects.append(obj)
         return obj
@@ -26,13 +26,13 @@ class Scene:
             return self.default_char
         else:
             return self.empty
-    def render(self, frames=1, delay=0.1):
+    def render(self, frames=1, delay=0.03):
         for frame in range(frames):
             console.clear()
             console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)]))
             time.sleep(delay)
             console.refresh()
-            self.step(steps=1)
+            self.step(steps=1, step_length=delay)
     def edge_collision(self, obj):
         # if obj.x > self.dims.x or obj.x < 0 or obj.y > self.dims.y or obj.y < 0:
         if self.edge_mode == 'wrap':
@@ -44,11 +44,12 @@ class Scene:
             pass
     def clear(self):
         self.objects = []
-    def step(self, steps=1):
+    def step(self, steps=1, step_length=1):
         for step in range(steps):
             for o in self.objects:
-                o.x += o.vel.x
-                o.y += o.vel.y
+                o.x += o.vel.x * step_length
+                o.y += o.vel.y * step_length
+                self.edge_collision(o)
 
 # Generic vector class
 class Vec:
@@ -85,16 +86,16 @@ class Object:
     def info(self):
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
-sim = Scene(dims=Vec((20, 20)))
+sim = Scene(dims=Vec((50, 25)))
 def random_scene():
     sim.clear()
-    for i in range(20):
-        x = random.randint(0, 20)
-        y = random.randint(0, 20)
-        sim.add(obj=Object(x, y, Vec().rand(-2, 2, float=True)))
+    for i in range(10):
+        x = random.randint(0, 50)
+        y = random.randint(0, 25)
+        sim.add(obj=Object(x, y, Vec().rand(-10, 10, float=True)))
 
 random_scene()
-sim.render(frames=30)
+sim.render(frames=300)
 
 curses.endwin()
 
