@@ -130,12 +130,15 @@ class Vec:
         return self.clone().sub(b).square().reduce().root(2)
 
 class Object:
-    def __init__(self, pos, vel, mass=1):
+    def __init__(self, pos, vel, mass=None):
         self.pos = pos
         self.x = pos.x
         self.y = pos.y
         self.vel = vel
-        self.mass = mass
+        if mass is None:
+            self.mass = Scalar(1)
+        elif type(mass) is Scalar:
+            self.mass = mass
     def info(self):
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
