@@ -6,6 +6,12 @@ import numpy as np
 
 console = curses.initscr()
 
+class Unit:
+    def __init__(self, name, abbr, utype):
+        self.name = name
+        self.abbr = abbr
+        self.utype = utype
+
 class Scene:
     def __init__(self, dims, edge_mode='wrap'):
         self.objects = []
