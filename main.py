@@ -14,6 +14,24 @@ class Geometry:
             self.dimensions = self.parts[0].dimensions + 1
         else:
             self.dimensions = dimensions
+
+
+class Point(Geometry):
+    def __init__(self):
+        # super(Geometry, self).__init__()
+        super().__init__(dimensions=0)
+
+class Line(Geometry):
+    def __init__(self):
+        super().__init__(dimensions=1)
+
+class Shape(Geometry):
+    def __init__(self):
+        super().__init__(dimensions=2)
+
+class Solid(Geometry):
+    def __init__(self):
+        super().__init__(dimensions=3)
 class Unit:
     def __init__(self, name, abbr, utype):
         self.name = name
