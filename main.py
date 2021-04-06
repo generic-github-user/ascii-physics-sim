@@ -50,10 +50,16 @@ class Scene:
     def step(self, steps=1, step_length=1):
         for step in range(steps):
             for o in self.objects:
+                # TODO: cache position, velocity, etc. before applying physics step
+                # TODO: collect list of forces acting on object
+                # TODO: replace this with vector operation
                 o.x += o.vel.x * step_length
                 o.y += o.vel.y * step_length
                 self.edge_collision(o)
+                # make sure to actually call this...
+                self.gravity(o)
 
+# TODO: generalize
 class Scalar:
     def __init__(self, n=None, units=''):
         self.n = n
