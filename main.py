@@ -70,10 +70,16 @@ class Simulation:
     def __init__(self):
         pass
 
+class Camera:
+    def __init__(self, pos, zoom=1):
+        self.zoom = zoom
+        self.pos = pos
+
 class Renderer:
-    def __init__(self, rtype, dims):
+    def __init__(self, rtype, dims, camera):
         self.rtype = rtype
         self.dims = dims
+        self.camera = camera
 
 class Scene:
     def __init__(self, dims, edge_mode='wrap'):
