@@ -110,6 +110,10 @@ class Vec:
         text = self.info()
         print(text)
         return text
+    # TODO: print each in chain
+    def distance(self, b):
+        self.clone().sub(b).square().print()
+        return self.clone().sub(b).square().reduce().root(2)
 
 class Object:
     def __init__(self, pos, vel, mass=1):
