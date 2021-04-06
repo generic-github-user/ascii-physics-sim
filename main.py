@@ -60,6 +60,27 @@ class Scalar:
         self.units = units
     def root(self, n):
         return Scalar(self.n ** (1/n))
+    def pow(self, n):
+        return Scalar(self.n ** n)
+    def sub(self, b):
+        self.op(b, lambda a, b: a - b)
+        return self
+    def add(self, b):
+        self.op(b, lambda a, b: a + b)
+        return self
+    def div(self, b):
+        self.op(b, lambda a, b: a / b)
+        return self
+    def mul(self, b):
+        self.op(b, lambda a, b: a * b)
+        return self
+    # reuse vector operations (?)
+    def op(self, b, f):
+        m = self.n
+        if type(b) is Vec:
+            return Vec((f(m, b.x), f(m, b.y)))
+        elif type(b) is Scalar:
+            self.n = f(self.n, b.n)
 
 # Generic vector class
 class Vec:
