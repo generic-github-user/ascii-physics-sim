@@ -83,7 +83,9 @@ class Vec:
         self.x = rfunc(min, max)
         self.y = rfunc(min, max)
         return self
-
+    def clone(self):
+        # return Vec(x=self.x, y=self.y)
+        return Vec(v=self.tuple())
 
 class Object:
     def __init__(self, x, y, vel):
