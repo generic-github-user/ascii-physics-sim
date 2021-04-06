@@ -282,6 +282,9 @@ class World:
     def snap():
         self.stuff = []
 
+class Universe:
+    pass
+
 print(Vec([50, 25]).x)
 sim = Scene(dims=Vec([50, 25])).randomize(num=10)
 # def random_scene():
