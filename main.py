@@ -100,6 +100,10 @@ class Vec:
         return self
     def each(self, f):
         return Vec(v=tuple(f(n) for n in self.tuple()))
+    def square(self):
+        return self.each(lambda x: x ** 2)
+    def reduce(self):
+        return Scalar(sum(self.tuple()))
 
 class Object:
     def __init__(self, x, y, vel):
