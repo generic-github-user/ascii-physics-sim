@@ -27,6 +27,34 @@ class Scene:
         console.refresh()
     def clear(self):
         self.objects = []
+    # def step(self):
+
+# Generic vector class
+class Vec:
+    def __init__(self, v=None, x=None, y=None, z=None):
+        if v:
+            self.x = v[0]
+            self.y = v[1]
+            # self.z = v[2]
+        elif x and y:
+            self.x = x
+            self.y = y
+        else:
+            # print('Must provide a tuple of vector components or x and y values to initialize vector')
+            self.x = 0
+            self.y = 0
+    def tuple(self):
+        return (self.x, self.y)
+    def rand(self, min, max, float=False):
+        if float:
+            rfunc = lambda x, y: random.uniform(x, y)
+        else:
+            rfunc = lambda x, y: random.randint(x, y)
+
+        self.x = rfunc(min, max)
+        self.y = rfunc(min, max)
+        return self
+
 
 class Object:
     def __init__(self, x, y):
