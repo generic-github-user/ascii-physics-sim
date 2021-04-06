@@ -32,6 +32,16 @@ class Shape(Geometry):
 class Solid(Geometry):
     def __init__(self):
         super().__init__(dimensions=3)
+
+
+# should this subclass Geometry instead?
+class Polygon(Shape):
+    def __init__(self):
+        super().__init__()
+        self.sides = []
+    def regular(self, sides, radius):
+        for s in range(sides):
+            self.sides.append(Line())
 class Unit:
     def __init__(self, name, abbr, utype):
         self.name = name
