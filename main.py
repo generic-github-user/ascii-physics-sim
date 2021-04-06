@@ -89,6 +89,7 @@ class Scene:
         self.gravity_constant = Scalar(10)
         self.drag = 1
         self.tiny = 0.00000000001
+        self.renderer = 'line'
     def add(self, obj):
         self.objects.append(obj)
         return obj
@@ -148,7 +149,7 @@ class Scene:
                 # o.x += o.vel.x * step_length
                 # o.y += o.vel.y * step_length
                 o.pos.n += o.vel() * step_length
-                # self.edge_collision(o)
+                self.edge_collision(o)
                 # make sure to actually call this...
                 self.gravity(o)
     def randomize(self, num=20):
@@ -246,7 +247,9 @@ class Object:
         self.pos = pos
         self.x = pos.x
         self.y = pos.y
+        # TODO: move above to function (?)
         self.vel = vel
+        self.matter = []
         if mass is None:
             self.mass = Scalar(1)
         elif type(mass) is Scalar:
@@ -254,15 +257,17 @@ class Object:
     def info(self):
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
-sim = Scene(dims=Vec((50, 25)))
-def random_scene():
-    sim.clear()
-    for i in range(10):
-        x = random.randint(0, 50)
-        y = random.randint(0, 25)
-        sim.add(obj=Object(Vec().rand(0, 30, float=True), Vec().rand(-10, 10, float=True)))
 
-random_scene()
+print(Vec([50, 25]).x)
+sim = Scene(dims=Vec([50, 25])).randomize(num=10)
+# def random_scene():
+#     sim.clear()
+#     for i in range(10):
+#         x = random.randint(0, 50)
+#         y = random.randint(0, 25)
+        # sim.add(obj=Object(Vec().rand(0, 30, float=True), Vec().rand(0, 0, float=True)))
+
+# random_scene()
 sim.render(frames=300)
 
 curses.endwin()
@@ -278,3 +283,5 @@ print(obj.pos())
 print(o.pos())
 print(obj.pos.distance(o.pos))
 print((1000 * obj.mass() * o.mass() / ((obj.pos.distance(o.pos)+0.000000001) ** 2)) / obj.mass())
+
+# TODO: track total energy in system
