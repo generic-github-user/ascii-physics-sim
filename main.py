@@ -70,6 +70,10 @@ class Simulation:
     def __init__(self):
         pass
 
+class GlyphSet:
+    def __init__(self, line_characters='_-\\|/', angles=[0, 0, 60, 90, 120], heights=[0, 0.5, 0.5, 0.5, 0.5]):
+        self.symbols = zip(line_characters, angles, heights)
+
 class Camera:
     def __init__(self, pos, zoom=1):
         self.zoom = zoom
