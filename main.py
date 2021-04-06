@@ -191,9 +191,14 @@ sim.render(frames=300)
 
 curses.endwin()
 
-print(sim.objects[0].info())
-print(Vec((0, 0)).distance(Vec((3, 4))).n)
+# print(sim.objects[0].info())
+# print(Vec((0, 0)).distance(Vec((3, 4))).n)
 obj = sim.objects[0]
-o = sim.objects[1]
-print(obj.pos.distance(o.pos).n ** 2)
-print((1000 * obj.mass * o.mass / (obj.pos.distance(o.pos).n ** 2)) / obj.mass)
+o = sim.objects[2]
+# print(obj.pos.distance(o.pos).n ** 2)
+# print((1000 * obj.mass * o.mass / (obj.pos.distance(o.pos).n ** 2)) / obj.mass)
+print(sim.dims())
+print(obj.pos())
+print(o.pos())
+print(obj.pos.distance(o.pos))
+print((1000 * obj.mass() * o.mass() / ((obj.pos.distance(o.pos)+0.000000001) ** 2)) / obj.mass())
