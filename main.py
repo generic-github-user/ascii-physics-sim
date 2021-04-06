@@ -6,6 +6,14 @@ import numpy as np
 
 console = curses.initscr()
 
+# Generalized multidimensional shape class
+class Geometry:
+    def __init__(self, parts, dimensions=None):
+        self.parts = parts
+        if dimensions is None:
+            self.dimensions = self.parts[0].dimensions + 1
+        else:
+            self.dimensions = dimensions
 class Unit:
     def __init__(self, name, abbr, utype):
         self.name = name
