@@ -10,6 +10,10 @@ class Scene:
         self.objects = []
         self.default_char = 'o'
         self.empty = ' '
+        self.units = {
+            'dist': 'm',
+            'time': 's'
+        }
     def add(self, obj):
         self.objects.append(obj)
         return obj
