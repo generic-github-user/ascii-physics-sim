@@ -86,6 +86,18 @@ class Vec:
     def clone(self):
         # return Vec(x=self.x, y=self.y)
         return Vec(v=self.tuple())
+    def abs(self):
+        self.x = abs(self.x)
+        self.y = abs(self.y)
+        return self
+    def sub(self, b):
+        self.x -= b.x
+        self.y -= b.y
+        return self
+    def add(self, b):
+        self.x += b.x
+        self.y += b.y
+        return self
 
 class Object:
     def __init__(self, x, y, vel):
