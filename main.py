@@ -104,6 +104,12 @@ class Vec:
         return self.each(lambda x: x ** 2)
     def reduce(self):
         return Scalar(sum(self.tuple()))
+    def info(self):
+        return '\n'.join(str(n) for n in [self.x, self.y])
+    def print(self):
+        text = self.info()
+        print(text)
+        return text
 
 class Object:
     def __init__(self, x, y, vel):
