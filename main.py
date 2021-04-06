@@ -27,7 +27,11 @@ class Scene:
         console.refresh()
     def clear(self):
         self.objects = []
-    # def step(self):
+    def step(self, steps=1):
+        for step in range(steps):
+            for o in self.objects:
+                o.x += o.vel.x
+                o.y += o.vel.y
 
 # Generic vector class
 class Vec:
