@@ -42,6 +42,11 @@ class Polygon(Shape):
     def regular(self, sides, radius):
         for s in range(sides):
             self.sides.append(Line())
+
+class Circle(Shape):
+    def __init__(self, radius):
+        super().__init__()
+        self.radius = radius
 class Unit:
     def __init__(self, name, abbr, utype):
         self.name = name
