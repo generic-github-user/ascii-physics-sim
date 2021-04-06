@@ -75,6 +75,14 @@ class Scene:
                 self.edge_collision(o)
                 # make sure to actually call this...
                 self.gravity(o)
+    def randomize(self, num=20):
+        for i in range(num):
+            # rand_min = [0, 0]
+            # rand_max = self.dims()
+            rand_min = 0
+            rand_max = 30
+            self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.zeros(2))))
+        return self
 
 class Tensor:
     def __init__(self, n, units=''):
