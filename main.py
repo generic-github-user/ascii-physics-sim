@@ -98,6 +98,8 @@ class Vec:
         self.x += b.x
         self.y += b.y
         return self
+    def each(self, f):
+        return Vec(v=tuple(f(n) for n in self.tuple()))
 
 class Object:
     def __init__(self, x, y, vel):
