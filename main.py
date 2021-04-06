@@ -6,7 +6,7 @@ import curses
 console = curses.initscr()
 
 class Scene:
-    def __init__(self):
+    def __init__(self, dims):
         self.objects = []
         self.default_char = 'o'
         self.empty = ' '
@@ -14,6 +14,8 @@ class Scene:
             'dist': 'm',
             'time': 's'
         }
+        self.dims = dims
+        # self.edges = 'wrap'
     def add(self, obj):
         self.objects.append(obj)
         return obj
@@ -27,7 +29,7 @@ class Scene:
     def render(self, frames=1, delay=0.1):
         for frame in range(frames):
             console.clear()
-            console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, 20)]) for y in range(0, 20)]))
+            console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)]))
             time.sleep(delay)
             console.refresh()
             self.step(steps=1)
@@ -74,7 +76,7 @@ class Object:
     def info(self):
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
-sim = Scene()
+sim = Scene(dims=Vec((20, 20)))
 def random_scene():
     sim.clear()
     for i in range(20):
