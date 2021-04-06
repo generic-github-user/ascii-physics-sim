@@ -65,6 +65,16 @@ class Unit:
         self.abbr = abbr
         self.utype = utype
 
+# TODO: class tree diagram
+class Simulation:
+    def __init__(self):
+        pass
+
+class Renderer:
+    def __init__(self, rtype, dims):
+        self.rtype = rtype
+        self.dims = dims
+
 class Scene:
     def __init__(self, dims, edge_mode='wrap'):
         self.objects = []
