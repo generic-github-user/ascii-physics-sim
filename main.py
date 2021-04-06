@@ -47,6 +47,12 @@ class Circle(Shape):
     def __init__(self, radius):
         super().__init__()
         self.radius = radius
+
+class Material:
+    def __init__(self, name, elasticity, mass):
+        self.name = name
+        self.elasticity = elasticity
+        self.mass = mass
 class Unit:
     def __init__(self, name, abbr, utype):
         self.name = name
