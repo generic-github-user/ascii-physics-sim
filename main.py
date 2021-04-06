@@ -79,11 +79,7 @@ def random_scene():
         sim.add(obj=Object(x, y, Vec().rand(-2, 2, float=True)))
 
 random_scene()
-sim.render()
-time.sleep(1)
-random_scene()
-sim.render()
-time.sleep(1)
+sim.render(frames=30)
 
 curses.endwin()
 
