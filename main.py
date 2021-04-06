@@ -23,14 +23,15 @@ class Scene:
         }
         self.dims = dims
         self.edge_mode = edge_mode
-        self.gravity_constant = Scalar(0.1)
+        self.gravity_constant = Scalar(10)
         self.drag = 1
         self.tiny = 0.00000000001
     def add(self, obj):
         self.objects.append(obj)
         return obj
     def at(self, x, y):
-        return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
+        # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
+        return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
     def dot(self, m):
         if m > 0:
             return self.default_char
@@ -46,14 +47,25 @@ class Scene:
     def edge_collision(self, obj):
         # if obj.x > self.dims.x or obj.x < 0 or obj.y > self.dims.y or obj.y < 0:
         if self.edge_mode == 'wrap':
-            obj.x = obj.x % self.dims.x
-            obj.y = obj.y % self.dims.y
+            # obj.x = obj.x % self.dims.x
+            # obj.y = obj.y % self.dims.y
+            obj.pos.n = obj.pos() % self.dims()
         elif self.edge_mode == 'bounce':
             pass
         elif self.edge_mode == 'extend':
             pass
     def gravity(self, obj):
-        pass
+        for o in self.objects:
+            if obj is not o:
+                dist = obj.pos.distance(o.pos)
+                if dist == 0:
+                    dist = self.tiny
+
+                # wrap distance?
+                # use unit vector or use original vector directly in equation?
+                # obj.pos.n += (self.gravity_constant() * obj.mass() * o.mass() / (dist ** 2)) / obj.mass()
+                obj.vel.n += (self.gravity_constant() * obj.mass() * o.mass() / (dist ** 2)) / obj.mass() * (o.pos()-obj.pos())
+                # print(obj.vel.n)
         # for o in self.objects:
         #     dist = obj.pos.distance2(o.pos)
         #     if dist == 0:
@@ -70,9 +82,10 @@ class Scene:
                 # TODO: cache position, velocity, etc. before applying physics step
                 # TODO: collect list of forces acting on object
                 # TODO: replace this with vector operation
-                o.x += o.vel.x * step_length
-                o.y += o.vel.y * step_length
-                self.edge_collision(o)
+                # o.x += o.vel.x * step_length
+                # o.y += o.vel.y * step_length
+                o.pos.n += o.vel() * step_length
+                # self.edge_collision(o)
                 # make sure to actually call this...
                 self.gravity(o)
     def randomize(self, num=20):
