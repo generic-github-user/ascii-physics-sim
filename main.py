@@ -112,10 +112,12 @@ class Vec:
         return text
 
 class Object:
-    def __init__(self, x, y, vel):
-        self.x = x
-        self.y = y
+    def __init__(self, pos, vel, mass=1):
+        self.pos = pos
+        self.x = pos.x
+        self.y = pos.y
         self.vel = vel
+        self.mass = mass
     def info(self):
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
@@ -125,7 +127,7 @@ def random_scene():
     for i in range(10):
         x = random.randint(0, 50)
         y = random.randint(0, 25)
-        sim.add(obj=Object(x, y, Vec().rand(-10, 10, float=True)))
+        sim.add(obj=Object(Vec().rand(0, 30, float=True), Vec().rand(-10, 10, float=True)))
 
 random_scene()
 sim.render(frames=300)
