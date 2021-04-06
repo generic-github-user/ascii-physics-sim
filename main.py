@@ -53,6 +53,12 @@ class Material:
         self.name = name
         self.elasticity = elasticity
         self.mass = mass
+
+class Matter:
+    def __init__(self, geometry, material):
+        self.geometry = geometry
+        self.material = material
+
 class Unit:
     def __init__(self, name, abbr, utype):
         self.name = name
