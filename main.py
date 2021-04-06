@@ -172,8 +172,16 @@ class Tensor:
         self.n = np.array(n)
         self.forces = []
         self.units = units
-    def __repr__(self):
+        if self.n.size == 2:
+            self.x = self.n[0]
+            self.y = self.n[1]
+    # def __repr__(self):
+    def __call__(self):
         return self.n
+    # TODO: optimize distance-finding in gravity algorithm
+    def distance(self, b):
+        return np.linalg.norm(self.n-b.n)
+
 Scalar = Tensor
 Vector = Tensor
 Vec = Tensor
