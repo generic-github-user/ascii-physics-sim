@@ -33,6 +33,15 @@ class Scene:
             time.sleep(delay)
             console.refresh()
             self.step(steps=1)
+    def edge_collision(self, obj):
+        # if obj.x > self.dims.x or obj.x < 0 or obj.y > self.dims.y or obj.y < 0:
+        if self.edge_mode == 'wrap':
+            obj.x = obj.x % self.dims.x
+            obj.y = obj.y % self.dims.y
+        elif self.edge_mode == 'bounce':
+            pass
+        elif self.edge_mode == 'extend':
+            pass
     def clear(self):
         self.objects = []
     def step(self, steps=1):
