@@ -51,6 +51,13 @@ class Scene:
                 o.y += o.vel.y * step_length
                 self.edge_collision(o)
 
+class Scalar:
+    def __init__(self, n=None, units=''):
+        self.n = n
+        self.units = units
+    def root(self, n):
+        return Scalar(self.n ** (1/n))
+
 # Generic vector class
 class Vec:
     def __init__(self, v=None, x=None, y=None, z=None):
