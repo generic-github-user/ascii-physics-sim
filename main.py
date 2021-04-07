@@ -49,10 +49,10 @@ class Circle(Shape):
         self.radius = radius
 
 class Material:
-    def __init__(self, name, elasticity, mass):
+    def __init__(self, name, elasticity, density):
         self.name = name
         self.elasticity = elasticity
-        self.mass = mass
+        self.density = density
 
 class Matter:
     def __init__(self, geometry, material):
@@ -79,17 +79,36 @@ class Camera:
         self.zoom = zoom
         self.pos = pos
 
+# TODO: add simple shading
 class Renderer:
-    def __init__(self, rtype, dims, camera):
+    def __init__(self, rtype, dims, camera, glyphs, objects):
         self.rtype = rtype
         self.dims = dims
         self.camera = camera
+        self.glyphs = glyphs
+        self.default_char = 'o'
+        self.empty = ' '
+        self.objects = objects
+    def fetch_line_glyph(self, angle, height):
+        return min(self.glyphs, key=lambda x: abs(angle - x[1]) + abs(height - x[2]))[0]
+    def dot(self, m):
+        if m > 0:
+            return self.default_char
+        else:
+            return self.empty
+    def at(self, x, y):
+        # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
+        return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
+    def render_frame(self):
+        console.clear()
+        console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)]))
+        console.refresh()
+        # TODO: optimization
+        # TODO: per-shape and per-cell rendering
 
 class Scene:
     def __init__(self, dims, edge_mode='wrap'):
         self.objects = []
-        self.default_char = 'o'
-        self.empty = ' '
         self.units = {
             'dist': 'm',
             'time': 's'
@@ -99,25 +118,10 @@ class Scene:
         self.gravity_constant = Scalar(10)
         self.drag = 1
         self.tiny = 0.00000000001
-        self.renderer = 'line'
+        self.renderer = Renderer('line', self.dims, Camera(Tensor([2, 2])), GlyphSet(), self.objects)
     def add(self, obj):
         self.objects.append(obj)
         return obj
-    def at(self, x, y):
-        # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
-        return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
-    def dot(self, m):
-        if m > 0:
-            return self.default_char
-        else:
-            return self.empty
-    def render(self, frames=1, delay=0.03):
-        for frame in range(frames):
-            console.clear()
-            console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)]))
-            time.sleep(delay)
-            console.refresh()
-            self.step(steps=1, step_length=delay)
     def edge_collision(self, obj):
         # if obj.x > self.dims.x or obj.x < 0 or obj.y > self.dims.y or obj.y < 0:
         if self.edge_mode == 'wrap':
@@ -170,6 +174,23 @@ class Scene:
             rand_max = 30
             self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.zeros(2))))
         return self
+    # clean all this up
+    def render(self):
+        self.renderer.render_frame()
+    # def step(self):
+    #     self.
+    def simulate(self, frames=30, steps=1, delay=None, fps=30):
+        if delay:
+            pause = delay
+        elif fps:
+            pause = 1 / fps
+
+        for frame in range(frames):
+            self.render()
+            # for step in range(steps):
+            self.step(steps=steps, step_length=pause/steps)
+            # time.sleep(pause)
+            # TODO: separate simulation and rendering loops?
 
 class Tensor:
     def __init__(self, n, units=''):
@@ -299,7 +320,7 @@ sim = Scene(dims=Vec([50, 25])).randomize(num=10)
         # sim.add(obj=Object(Vec().rand(0, 30, float=True), Vec().rand(0, 0, float=True)))
 
 # random_scene()
-sim.render(frames=300)
+sim.simulate(frames=30, fps=30)
 
 curses.endwin()
 
