@@ -378,7 +378,9 @@ class Scene:
                 # TODO: replace this with vector operation
                 # o.x += o.vel.x * step_length
                 # o.y += o.vel.y * step_length
-                o.pos.n += o.vel() * step_length
+                delta = o.vel() * step_length
+                o.pos.n += delta
+                o.delta.n = delta
                 self.edge_collision(o)
                 # make sure to actually call this...
                 self.gravity(o)
