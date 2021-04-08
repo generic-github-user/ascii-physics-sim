@@ -463,21 +463,6 @@ Scalar = Tensor
 Vector = Tensor
 Vec = Tensor
 
-# TODO: generalize
-# class Scalar:
-#     def __init__(self, n, units=''):
-#         self.n = n
-#         self.units = units
-#     def __repr__(self):
-#         return self.n
-#     # reuse vector operations (?)
-#     def op(self, b, f):
-#         m = self.n
-#         if type(b) is Vec:
-#             return Vec((f(m, b.x), f(m, b.y)))
-#         elif type(b) is Scalar:
-#             self.n = f(self.n, b.n)
-
 # Generic vector class
 # class Vec:
 #     def __init__(self, v=None, x=None, y=None, z=None, units=''):
