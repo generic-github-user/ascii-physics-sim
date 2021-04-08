@@ -395,20 +395,29 @@ class Scene:
             self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.random.uniform(-5, 5, [2])), matter=Matter(Circle(radius=Scalar(r)), material=None)))
         return self
     # clean all this up
-    def render(self):
-        self.renderer.render_frame()
+    def rrender(self, callback, delay=0, steps=300):
+        self.renderer.render_frame(callback, steps=steps)
+        # finally! 10:26 4-7
     # def step(self):
-    #     self.
-    def simulate(self, frames=30, steps=1, delay=None, fps=30):
+        # self.
+    # complete as adjective
+    def complete_step(self, callback, steps=300):
+        self.rrender(callback=callback, steps=steps)
+    def simulate(self, frames=300, steps=1, delay=None, fps=30):
         if delay:
             pause = delay
         elif fps:
             pause = 1 / fps
+        print(frames)
+        m=0
 
-        for frame in range(frames):
-            self.render()
+        # phys_step = lambda: self.step(steps=steps, step_length=pause/steps)
+        # root.after(round(pause * 1000), self.complete_step)
+        self.complete_step(callback=self.step)
+
+        # for frame in range(300):
+            # self.render(pause)
             # for step in range(steps):
-            self.step(steps=steps, step_length=pause/steps)
 
             # TODO: fix name
             # TODO: snippets
@@ -421,6 +430,7 @@ class Scene:
             # time.sleep(pause)
             # TODO: separate simulation and rendering loops?
 
+        print(m)
 # TODO: ALL?
 
 class Tensor:
