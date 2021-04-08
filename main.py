@@ -56,8 +56,12 @@ myCanvas = tkinter.Canvas(root, bg="white", height=700, width=700)
 
 # Generalized multidimensional shape class
 class Geometry:
-    def __init__(self, parts, dimensions=None):
-        self.parts = parts
+    def __init__(self, parts=None, dimensions=None):
+        if parts:
+            self.parts = parts
+        else:
+            self.parts = []
+
         if dimensions is None:
             self.dimensions = self.parts[0].dimensions + 1
         else:
