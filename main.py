@@ -254,7 +254,9 @@ class Scene:
                 self.edge_collision(o)
                 # make sure to actually call this...
                 self.gravity(o)
-    def randomize(self, num=20):
+    def randomize(self, num=20, clear=False):
+        if clear:
+            self.clear()
         for i in range(num):
             # rand_min = [0, 0]
             # rand_max = self.dims()
