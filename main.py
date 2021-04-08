@@ -212,6 +212,27 @@ class Renderer:
         # print(g.astype('|S1'))
         # print(g.astype(str))
         return '\n'.join([''.join(h) for h in g])
+    def form_output(self, angles):
+        # TODO: use numpy char array
+        # char_array = np.chararray(self.dims())
+        # for x, y in np.ndindex(char_array.shape):
+        #     # TODO: incorporate pos
+        #     char_array[x, y] = self.fetch_line_glyph(angles[x, y], 0)
+
+        char_array = []
+        dims = self.dims()
+        # for x in range(dims[0]):
+        #     char_array.append([self.fetch_line_glyph(angles[x, y], 0) for y in range(dims[1])])
+        for x in range(dims[0]):
+            row = []
+            for y in range(dims[1]):
+                if angles[x, y] == 0:
+                    row.append(' ')
+                else:
+                    row.append(self.fetch_line_glyph(angles[x, y], 0.5))
+            char_array.append(row)
+
+        return char_array
     def render_frame(self, callback, steps=300, current=0, show=True, delay=0):
         con = self.console
         if show:
