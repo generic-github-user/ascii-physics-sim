@@ -281,6 +281,15 @@ class Scene:
             self.render()
             # for step in range(steps):
             self.step(steps=steps, step_length=pause/steps)
+
+            # TODO: fix name
+            # TODO: snippets
+            # root.after(round(pause * 1000), self.rrender)
+            # root.update_idletasks()
+            # root.update()
+            # myCanvas.update()
+            # m+=1
+            # or update canvas?
             # time.sleep(pause)
             # TODO: separate simulation and rendering loops?
 
