@@ -334,7 +334,7 @@ class Scene:
         self.gravity_constant = Scalar(0.5)
         self.drag = 1
         self.tiny = 0.00000000001
-        self.renderer = Renderer('line', self.dims, Camera(Tensor([2, 2])), GlyphSet(), self.objects)
+        self.renderer = Renderer(rtype='canvas', dims=self.dims, camera=Camera(Tensor([2, 2])), glyphs=GlyphSet(), objects=self.objects)
     def add(self, obj):
         self.objects.append(obj)
         return obj
