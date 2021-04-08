@@ -206,16 +206,25 @@ class Renderer:
     def at(self, x, y):
         # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
         return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
-    def render_frame(self):
-        console.clear()
-        console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)]))
-        console.refresh()
     def combine_output(self, g):
         # return ['\n'.join([''.join([h for h in g])])]
         # return ['\n'.join([''.join(h.tolist()) for h in g])]
         # print(g.astype('|S1'))
         # print(g.astype(str))
         return '\n'.join([''.join(h) for h in g])
+    def render_frame(self, callback, steps=300, current=0, show=True, delay=0):
+        con = self.console
+        if show:
+            con.clear()
+
+        dims = self.dims()
+        frame_angles = np.zeros(dims)
+        frame_pos = np.zeros(dims)
+
+        # TODO: separate ASCII rendering library
+        # TODO: move into functions (? - not sure if this would slow program down by much)
+        if self.rtype == 'point':
+            output_text = '\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)])
         # TODO: optimization
         # TODO: per-shape and per-cell rendering
 
