@@ -278,6 +278,29 @@ class Renderer:
         # print(frame_angles)
         # TODO: add colors
         # TODO: optimize rtype
+        elif self.rtype == 'canvas':
+            canvas_objs = []
+            for obj in self.objects:
+                # draw arcs
+                # TODO: fix render settings handling
+                center = np.round(obj.pos()) * 10
+                # TODO: use this more
+                cx, cy = center
+                # TODO: use actual radius
+                r = 20
+                coord = cx-r, cy-r, cx+r, cy+r
+                # print(coord)
+                # TODO: use ellipse?
+                # cv_obj = myCanvas.create_arc(coord, start=0, extent=360, outline='black')
+                # cv_obj = myCanvas.create_arc(coord, start=0, extent=360, outline='black', style='arc', width=5, fill='green')
+                # TODO: optimize
+                if not obj.display:
+                    cv_obj = myCanvas.create_oval(coord)
+                    obj.display = cv_obj
+                    canvas_objs.append(cv_obj)
+                myCanvas.move(obj.display, *obj.delta())
+                # myCanvas.move(obj.display, 0.05, 0.05)
+                # self.canvas.after(delay, self.move_ball)
         # TODO: optimization
         # TODO: per-shape and per-cell rendering
 
