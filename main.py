@@ -260,9 +260,11 @@ class Scene:
         for i in range(num):
             # rand_min = [0, 0]
             # rand_max = self.dims()
-            rand_min = 0
-            rand_max = 30
-            self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.zeros(2))))
+            rand_min = 10
+            rand_max = 20
+            r = random.randint(1, 5)
+            # TODO: random func alias
+            self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.random.uniform(-5, 5, [2])), matter=Matter(Circle(radius=Scalar(r)), material=None)))
         return self
     # clean all this up
     def render(self):
