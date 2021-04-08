@@ -128,6 +128,11 @@ class Circle(Shape):
             minigrid[x, y] = d_theta * c * minigrid[x, y]
         return np.round(minigrid)
 
+class Name:
+    def __init__(self, name, abbr):
+        self.name = name
+        self.abbr = abbr
+
 class Material:
     def __init__(self, name, abbr, elasticity, density, color=''):
         self.name = name
