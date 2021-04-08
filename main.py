@@ -4,7 +4,6 @@ import random
 import curses
 import numpy as np
 
-console = curses.initscr()
 # import OpenGL
 # import OpenGL.GL
 # import OpenGL.GLUT
@@ -102,6 +101,9 @@ class Polygon(Shape):
 
 # TODO: numerical precision setting
 
+class Ellipse(Shape):
+    pass
+
 class Circle(Shape):
     def __init__(self, radius):
         super().__init__()
@@ -140,7 +142,7 @@ class Material:
     def __init__(self, name, abbr, elasticity, density, color='', opacity=1, ior=0, softness=1, explosiveness=0, volatility=1):
         self.name = name
         self.abbr = abbr
-        
+
         self.elasticity = elasticity
         self.stiffness = self.elasticity
         self.density = density
@@ -174,19 +176,23 @@ class Angle:
 
 # TODO: class tree diagram
 class Simulation:
-    def __init__(self):
+    def __init__(self, world):
+        self.world = world
+    def group_objects(self):
         pass
 
 class GlyphSet:
     def __init__(self, line_characters='_-\\|/', angles=[0, 0, 60, 90, 120], heights=[0, 0.5, 0.5, 0.5, 0.5]):
-        self.symbols = zip(line_characters, angles, heights)
+        self.symbols = list(zip(line_characters, angles, heights))
 
 class Camera:
     def __init__(self, pos, zoom=1):
         self.zoom = zoom
         self.pos = pos
 
+# TODO: modularize
 # TODO: add simple shading
+# TODO: add rendering noise (e.g. randomness in character selection)
 class Renderer:
     def __init__(self, rtype, dims, camera, glyphs, objects):
         self.rtype = rtype
@@ -196,8 +202,9 @@ class Renderer:
         self.default_char = 'o'
         self.empty = ' '
         self.objects = objects
+        self.console = curses.initscr()
     def fetch_line_glyph(self, angle, height):
-        return min(self.glyphs, key=lambda x: abs(angle - x[1]) + abs(height - x[2]))[0]
+        return min(self.glyphs.symbols, key=(lambda x: abs(angle - x[1]) + abs(height - x[2])))[0]
     def dot(self, m):
         if m > 0:
             return self.default_char
@@ -206,6 +213,8 @@ class Renderer:
     def at(self, x, y):
         # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
         return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
+    def build_mask(self):
+        pass
     def combine_output(self, g):
         # return ['\n'.join([''.join([h for h in g])])]
         # return ['\n'.join([''.join(h.tolist()) for h in g])]
@@ -525,7 +534,7 @@ Vec = Tensor
 #         return self.clone().sub(b).square().root(2)
 
 class Object:
-    def __init__(self, pos, vel, mass=None):
+    def __init__(self, pos, vel, matter, mass=None):
         self.pos = pos
         self.x = pos.x
         self.y = pos.y
