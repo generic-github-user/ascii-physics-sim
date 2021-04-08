@@ -129,10 +129,12 @@ class Circle(Shape):
         return np.round(minigrid)
 
 class Material:
-    def __init__(self, name, elasticity, density):
+    def __init__(self, name, abbr, elasticity, density, color=''):
         self.name = name
+        self.abbr = abbr
         self.elasticity = elasticity
         self.density = density
+        self.color = color
 
 class Matter:
     def __init__(self, geometry, material):
