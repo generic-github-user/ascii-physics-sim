@@ -301,6 +301,11 @@ class Renderer:
                 myCanvas.move(obj.display, *obj.delta())
                 # myCanvas.move(obj.display, 0.05, 0.05)
                 # self.canvas.after(delay, self.move_ball)
+        elif self.rtype == 'opengl':
+            pass
+        elif self.rtype == 'cairo':
+            pass
+
         # TODO: optimization
         # TODO: per-shape and per-cell rendering
 
