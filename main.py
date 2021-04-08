@@ -246,6 +246,38 @@ class Renderer:
         # TODO: move into functions (? - not sure if this would slow program down by much)
         if self.rtype == 'point':
             output_text = '\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)])
+        elif self.rtype == 'line':
+            for obj in self.objects:
+                obj_geometry = obj.matter.geometry
+                if type(obj_geometry) is Circle:
+                    # print(True)
+                    tangents = obj_geometry.get_tangents()
+                    window = tangents.shape
+                    xo = round(obj.pos()[0])
+                    yo = round(obj.pos()[1])
+                    # print(obj.pos())
+                    # print(tangents)
+                    # TODO: offset by half of window size
+                    # TODO: fix
+                    try:
+                        frame_angles[xo:window[0]+xo, yo:window[1]+yo] += tangents
+                    except:
+                        pass
+
+                    # should we make the angle list first?
+                    output_text = self.form_output(frame_angles)
+                    # print(output_text)
+                    output_text = self.combine_output(output_text)
+                    # print(output_text)
+
+            if show:
+                con.addstr(output_text)
+                con.refresh()
+
+        # TODO: debug mode
+        # print(frame_angles)
+        # TODO: add colors
+        # TODO: optimize rtype
         # TODO: optimization
         # TODO: per-shape and per-cell rendering
 
