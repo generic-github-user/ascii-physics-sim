@@ -208,7 +208,7 @@ class Scene:
         }
         self.dims = dims
         self.edge_mode = edge_mode
-        self.gravity_constant = Scalar(10)
+        self.gravity_constant = Scalar(0.5)
         self.drag = 1
         self.tiny = 0.00000000001
         self.renderer = Renderer('line', self.dims, Camera(Tensor([2, 2])), GlyphSet(), self.objects)
@@ -297,6 +297,8 @@ class Scene:
             # or update canvas?
             # time.sleep(pause)
             # TODO: separate simulation and rendering loops?
+
+# TODO: ALL?
 
 class Tensor:
     def __init__(self, n, units=''):
@@ -394,7 +396,10 @@ class Object:
         self.y = pos.y
         # TODO: move above to function (?)
         self.vel = vel
+        # TODO: Do we need this?
         self.matter = []
+        self.matter = matter
+
         if mass is None:
             self.mass = Scalar(1)
         elif type(mass) is Scalar:
@@ -416,8 +421,14 @@ class World:
 class Universe:
     pass
 
+# TODO: unit inference from strings
+# unbtm = Material('Unobtanium', 'ubt', 1, Scalar(40, Unit('g/cm^3')))
+
+
+
 print(Vec([50, 25]).x)
-sim = Scene(dims=Vec([50, 25])).randomize(num=10)
+# TODO: fix dimension ordering
+sim = Scene(dims=Vec([40, 45])).randomize(num=10)
 # def random_scene():
 #     sim.clear()
 #     for i in range(10):
