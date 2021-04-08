@@ -99,6 +99,27 @@ class Circle(Shape):
     def __init__(self, radius):
         super().__init__()
         self.radius = radius
+    # Quickly calculate incline angle of tangent line for each cell rendered on circle outline; these will be used to render the outline in ASCII characters
+    def get_tangents(self):
+        r = self.radius()
+        # possibly move this code
+        minigrid = np.zeros([r*2+1, r*2+1])
+        # crossed_cells = minigrid
+        # TODO: mirroring for efficiency?
+        for x, y in np.ndindex(minigrid.shape):
+            # print(5)
+            # print(np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))))
+            if np.round(np.linalg.norm(np.array([x, y]) - np.array([r, r]))) == r:
+                minigrid[x, y] = 1
+        num_crossed = np.sum(minigrid)
+        d_theta = 360 / num_crossed
+        c = 0
+        for x, y in np.ndindex(minigrid.shape):
+            # if
+            c += minigrid[x, y]
+            # minigrid[x, y] = Angle(d_theta * c)
+            minigrid[x, y] = d_theta * c * minigrid[x, y]
+        return np.round(minigrid)
 
 class Material:
     def __init__(self, name, elasticity, density):
