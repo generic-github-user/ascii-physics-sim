@@ -137,18 +137,23 @@ class Name:
 
 # TODO: diagram (auto?)
 class Material:
-    def __init__(self, name, abbr, elasticity, density, color='', opacity=1, ior=0, softness=1):
+    def __init__(self, name, abbr, elasticity, density, color='', opacity=1, ior=0, softness=1, explosiveness=0, volatility=1):
         self.name = name
         self.abbr = abbr
+        
         self.elasticity = elasticity
         self.stiffness = self.elasticity
         self.density = density
+
         self.color = color
         self.opacity = opacity
         self.ior = ior
+
         self.softness = softness
         self.malleability = self.softness
 
+        self.explosiveness = explosiveness
+        self.volatility = volatility
 
 class Matter:
     def __init__(self, geometry, material):
