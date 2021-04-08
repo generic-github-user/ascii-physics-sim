@@ -196,6 +196,12 @@ class Renderer:
         console.clear()
         console.addstr('\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)]))
         console.refresh()
+    def combine_output(self, g):
+        # return ['\n'.join([''.join([h for h in g])])]
+        # return ['\n'.join([''.join(h.tolist()) for h in g])]
+        # print(g.astype('|S1'))
+        # print(g.astype(str))
+        return '\n'.join([''.join(h) for h in g])
         # TODO: optimization
         # TODO: per-shape and per-cell rendering
 
