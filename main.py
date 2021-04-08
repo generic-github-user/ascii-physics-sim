@@ -138,6 +138,12 @@ class Unit:
         self.abbr = abbr
         self.utype = utype
 
+class Angle:
+    def __init__(self, deg=0):
+        self.deg = deg % 360
+    def set(self, deg=0):
+        self.deg = deg % 360
+
 # TODO: class tree diagram
 class Simulation:
     def __init__(self):
