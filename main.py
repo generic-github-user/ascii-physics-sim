@@ -54,6 +54,11 @@ import tkinter
 root = tkinter.Tk()
 myCanvas = tkinter.Canvas(root, bg="white", height=700, width=700)
 
+
+# TODO: add automatic unit conversions
+# TODO: add physical unit reduction
+# TODO: nlp interfacing
+
 # Generalized multidimensional shape class
 class Geometry:
     def __init__(self, parts=None, dimensions=None):
@@ -94,6 +99,8 @@ class Polygon(Shape):
     def regular(self, sides, radius):
         for s in range(sides):
             self.sides.append(Line())
+
+# TODO: numerical precision setting
 
 class Circle(Shape):
     def __init__(self, radius):
