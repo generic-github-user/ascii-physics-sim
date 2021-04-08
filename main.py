@@ -404,6 +404,12 @@ class Object:
             self.mass = Scalar(1)
         elif type(mass) is Scalar:
             self.mass = mass
+
+        # not sure if keeping this
+        self.canvas = myCanvas
+        self.display = None
+        self.delta = Tensor([0, 0])
+
     def info(self):
         return '\n'.join(str(n) for n in [self.x, self.y, self.vel])
 
@@ -436,8 +442,12 @@ sim = Scene(dims=Vec([40, 45])).randomize(num=10)
 #         y = random.randint(0, 25)
         # sim.add(obj=Object(Vec().rand(0, 30, float=True), Vec().rand(0, 0, float=True)))
 
+
+# add to window and show
+myCanvas.pack()
 # random_scene()
-sim.simulate(frames=30, fps=30)
+sim.simulate(frames=300, fps=30)
+root.mainloop()
 
 # TODO: move this
 curses.endwin()
