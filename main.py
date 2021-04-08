@@ -133,13 +133,22 @@ class Name:
         self.name = name
         self.abbr = abbr
 
+# TODO: lighting engine?
+
+# TODO: diagram (auto?)
 class Material:
-    def __init__(self, name, abbr, elasticity, density, color=''):
+    def __init__(self, name, abbr, elasticity, density, color='', opacity=1, ior=0, softness=1):
         self.name = name
         self.abbr = abbr
         self.elasticity = elasticity
+        self.stiffness = self.elasticity
         self.density = density
         self.color = color
+        self.opacity = opacity
+        self.ior = ior
+        self.softness = softness
+        self.malleability = self.softness
+
 
 class Matter:
     def __init__(self, geometry, material):
