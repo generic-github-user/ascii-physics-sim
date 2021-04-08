@@ -258,12 +258,13 @@ class Renderer:
         dims = self.dims()
         frame_angles = np.zeros(dims)
         frame_pos = np.zeros(dims)
+        rtype = self.rtype
 
         # TODO: separate ASCII rendering library
         # TODO: move into functions (? - not sure if this would slow program down by much)
-        if self.rtype == 'point':
+        if rtype == 'point':
             output_text = '\n'.join([''.join([self.dot(len(self.at(x, y))) for x in range(0, self.dims.x)]) for y in range(0, self.dims.y)])
-        elif self.rtype == 'line':
+        elif rtype == 'line':
             for obj in self.objects:
                 obj_geometry = obj.matter.geometry
                 if type(obj_geometry) is Circle:
@@ -294,8 +295,7 @@ class Renderer:
         # TODO: debug mode
         # print(frame_angles)
         # TODO: add colors
-        # TODO: optimize rtype
-        elif self.rtype == 'canvas':
+        elif rtype == 'canvas':
             canvas_objs = []
             for obj in self.objects:
                 # draw arcs
@@ -318,9 +318,9 @@ class Renderer:
                 myCanvas.move(obj.display, *obj.delta())
                 # myCanvas.move(obj.display, 0.05, 0.05)
                 # self.canvas.after(delay, self.move_ball)
-        elif self.rtype == 'opengl':
+        elif rtype == 'opengl':
             pass
-        elif self.rtype == 'cairo':
+        elif rtype == 'cairo':
             pass
 
         callback()
