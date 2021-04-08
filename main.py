@@ -306,6 +306,19 @@ class Renderer:
         elif self.rtype == 'cairo':
             pass
 
+        callback()
+        if current < steps:
+            root.after(33, lambda: self.render_frame(callback=callback, current=current+1, steps=300))
+
+
+        # myCanvas.update()
+        # myCanvas.Update()
+        # TODO: use proper solution later - https://stackoverflow.com/a/21359051
+        # myCanvas.update_idletasks()
+        # time.sleep(delay)
+
+
+
         # TODO: optimization
         # TODO: per-shape and per-cell rendering
 
