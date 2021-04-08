@@ -137,6 +137,14 @@ class Name:
 
 # TODO: lighting engine?
 
+class Appearance:
+    def __init__(self):
+        pass
+
+class PhysProps:
+    def __init__(self):
+        pass
+
 # TODO: diagram (auto?)
 class Material:
     def __init__(self, name, abbr, elasticity, density, color='', opacity=1, ior=0, softness=1, explosiveness=0, volatility=1):
