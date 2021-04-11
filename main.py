@@ -58,9 +58,11 @@ myCanvas = tkinter.Canvas(root, bg="white", height=700, width=700)
 # TODO: add physical unit reduction
 # TODO: nlp interfacing
 
-# Generalized multidimensional shape class
 class Geometry:
+    """Generalized multidimensional shape class"""
     def __init__(self, parts=None, dimensions=None):
+        """Create a new geometry object"""
+
         if parts:
             self.parts = parts
         else:
@@ -101,10 +103,13 @@ class Hypersolid(Geometry):
 
 # should this subclass Geometry instead?
 class Polygon(Shape):
+    """General polygon class that extends the Shape class"""
     def __init__(self):
+        """Create a new polygon"""
         super().__init__()
-        self.sides = []
+        self.sides: [line] = []
     def regular(self, sides, radius):
+        """Define polygon's geometry as a regular polygon; one with equal sides and angles"""
         for s in range(sides):
             self.sides.append(Line())
 
@@ -114,11 +119,12 @@ class Ellipse(Shape):
     pass
 
 class Circle(Shape):
+    """A geometric 2D circle with a certain radius; subclass of Shape"""
     def __init__(self, radius):
         super().__init__()
-        self.radius = radius
-    # Quickly calculate incline angle of tangent line for each cell rendered on circle outline; these will be used to render the outline in ASCII characters
+        self.radius: Scalar = radius
     def get_tangents(self):
+        """Quickly calculate incline angle of tangent line for each cell rendered on circle outline; these will be used to render the outline in ASCII characters"""
         r = self.radius()
         # possibly move this code
         minigrid = np.zeros([r*2+1, r*2+1])
@@ -180,6 +186,7 @@ class Material:
         """Energy released when the material combusts (based on volatility threshold)"""
         self.volatility = volatility
         """Sensitivity of material to external forces; if this is exceeded, explosion will occur"""
+        self.tempThreshold = tempThreshold
 
 class Matter:
     def __init__(self, geometry, material):
@@ -200,8 +207,12 @@ class Angle:
 
 # TODO: class tree diagram
 class Simulation:
+    """A physics simulation that processes interactions between all of a world's objects"""
     def __init__(self, world):
-        self.world = world
+        """Create a new simulation"""
+
+        self.world: World = world
+        """The world that is being simulated"""
     def group_objects(self):
         pass
 
@@ -211,12 +222,15 @@ class GlyphSet:
 
 class Camera:
     def __init__(self, pos, zoom=1):
-        self.zoom = zoom
-        self.pos = pos
+        self.zoom: Scalar = zoom
+        self.pos: Vector = pos
 
 # TODO: modularize
 # TODO: add simple shading
 # TODO: add rendering noise (e.g. randomness in character selection)
+
+
+
 class Renderer:
     """Class for renderer to convert object data into a final image"""
     def __init__(self, rtype, dims, camera, glyphs, objects):
@@ -249,6 +263,7 @@ class Renderer:
         # return list(filter(lambda o: round(o.x) == x and round(o.y) == y, self.objects))
         return list(filter(lambda o: np.array_equal(np.round_(o.pos()), np.array([x, y])), self.objects))
     def build_mask(self):
+        """Create an array marking which cells contain a part of an object; which ones will be used in rendering"""
         pass
     def combine_output(self, g):
         # return ['\n'.join([''.join([h for h in g])])]
@@ -367,14 +382,25 @@ class Renderer:
         # TODO: per-shape and per-cell rendering
 
 class Scene:
+    """A class the brings together a world and a renderer, and provides high-level functions to facilitate their interaction"""
     def __init__(self, dims, edge_mode='wrap'):
-        self.objects = []
+        """Create a new scene"""
+
+        self.objects: [Object] = []
+        """A list of objects to initialize the scene with"""
         self.units = {
             'dist': 'm',
             'time': 's'
         }
-        self.dims = dims
-        self.edge_mode = edge_mode
+        self.dims: Vector = dims
+        """The width/height of the scene"""
+        self.edge_mode: str = edge_mode
+        """
+        Defines the behavior for objects that go over the edges of the scene:
+            - `wrap`: Wrap around so that an object passing through the bottom edge will come back down from the top edge, right will go to left, and so on
+            - `bounce`: Bounce the object against the side of the scene as if it were a wall
+            - `extend`: Let the object continue moving out of the frame
+        """
         self.gravity_constant = Scalar(0.5)
         self.drag = 1
         self.tiny = 0.00000000001
@@ -614,6 +640,7 @@ sim = Scene(dims=Vec([40, 45])).randomize(num=10)
 #         y = random.randint(0, 25)
         # sim.add(obj=Object(Vec().rand(0, 30, float=True), Vec().rand(0, 0, float=True)))
 
+# TODO: clean all this up
 
 # add to window and show
 myCanvas.pack()
