@@ -77,14 +77,17 @@ class Point(Geometry):
         # super(Geometry, self).__init__()
         super().__init__(dimensions=0)
 
+# 1D geometry convenience subclass
 class Line(Geometry):
     def __init__(self):
         super().__init__(dimensions=1)
 
+# 2D geometry convenience subclass
 class Shape(Geometry):
     def __init__(self):
         super().__init__(dimensions=2)
 
+# 3D geometry convenience subclass
 class Solid(Geometry):
     def __init__(self):
         super().__init__(dimensions=3)
