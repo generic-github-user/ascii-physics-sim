@@ -69,14 +69,18 @@ import tkinter
 # TODO: add automatic unit conversions
 # TODO: add physical unit reduction
 # TODO: nlp interfacing
-
+# TODO: class tree diagram
+# TODO: modularize
+# TODO: add simple shading
+# TODO: add rendering noise (e.g. randomness in character selection)
+# TODO: print each in chain
+# TODO: lighting engine?
+# TODO: fix dimension ordering
 
 class Name:
     def __init__(self, name, abbr):
         self.name = name
         self.abbr = abbr
-
-# TODO: lighting engine?
 
 class Appearance:
     def __init__(self):
@@ -85,9 +89,6 @@ class Appearance:
 class PhysProps:
     def __init__(self):
         pass
-
-
-
 
 
 class Unit:
@@ -102,7 +103,7 @@ class Angle:
     def set(self, deg=0):
         self.deg = deg % 360
 
-# TODO: class tree diagram
+
 class Simulation:
     """A physics simulation that processes interactions between all of a world's objects"""
     def __init__(self, world):
@@ -114,11 +115,6 @@ class Simulation:
         pass
 
 
-# TODO: modularize
-# TODO: add simple shading
-# TODO: add rendering noise (e.g. randomness in character selection)
-
-# TODO: print each in chain
 
 class Cluster:
     def __init__(self):
@@ -138,16 +134,8 @@ class Universe:
 # unbtm = Material('Unobtanium', 'ubt', 1, Scalar(40, Unit('g/cm^3')))
 
 
-
 print(Vec([50, 25]).x)
-# TODO: fix dimension ordering
 sim = Scene(dims=Vec([40, 45])).randomize(num=10)
-# def random_scene():
-#     sim.clear()
-#     for i in range(10):
-#         x = random.randint(0, 50)
-#         y = random.randint(0, 25)
-        # sim.add(obj=Object(Vec().rand(0, 30, float=True), Vec().rand(0, 0, float=True)))
 
 # TODO: clean all this up
 
