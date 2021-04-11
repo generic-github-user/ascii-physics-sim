@@ -7,7 +7,7 @@ class Matter:
 
 class Object:
     """A single physical object, like a box or a tree"""
-    def __init__(self, pos, vel, matter, mass=None):
+    def __init__(self, pos, vel, angle, angvel, matter, mass=None):
         """Create a new object; creating it does not add it to any scene by default"""
 
         self.pos: Vector = pos
@@ -17,6 +17,10 @@ class Object:
         # TODO: move above to function (?)
         self.vel: Vector = vel
         """Initial xy velocity of the object"""
+
+        self.rotation: Angle = angle
+        self.angvel: Scalar = angvel
+
         # TODO: Do we need this?
         self.matter = []
         self.matter = matter

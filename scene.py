@@ -5,6 +5,7 @@ from tensor import *
 from renderer import *
 from object import *
 from geometry import *
+from helpers import *
 
 class Scene:
     """A class the brings together a world and a renderer, and provides high-level functions to facilitate their interaction"""
@@ -92,7 +93,7 @@ class Scene:
             rand_max = 20
             r = random.randint(1, 5)
             # TODO: random func alias
-            self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.random.uniform(-5, 5, [2])), matter=Matter(Circle(radius=Scalar(r)), material=None)))
+            self.add(Object(pos=Tensor(np.random.uniform(rand_min, rand_max, 2)), vel=Tensor(np.random.uniform(-5, 5, [2])), angle=Angle(deg=0), angvel=Scalar(0), matter=Matter(Circle(radius=Scalar(r)), material=None)))
         return self
     # clean all this up
     def rrender(self, callback, delay=0, steps=300):
