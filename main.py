@@ -13,11 +13,12 @@ import importlib
 #     importlib.import_module(module)
 
 from scene import Scene
+from material import Material
+from object import Object
 from renderer import *
 from tensor import *
 from geometry import *
-from material import Material
-from object import Object
+from helpers import *
 
 # import OpenGL
 # import OpenGL.GL
@@ -77,10 +78,7 @@ import tkinter
 # TODO: lighting engine?
 # TODO: fix dimension ordering
 
-class Name:
-    def __init__(self, name, abbr):
-        self.name = name
-        self.abbr = abbr
+
 
 class Appearance:
     def __init__(self):
@@ -91,17 +89,7 @@ class PhysProps:
         pass
 
 
-class Unit:
-    def __init__(self, name, abbr, utype):
-        self.name = name
-        self.abbr = abbr
-        self.utype = utype
 
-class Angle:
-    def __init__(self, deg=0):
-        self.deg = deg % 360
-    def set(self, deg=0):
-        self.deg = deg % 360
 
 
 class Simulation:
