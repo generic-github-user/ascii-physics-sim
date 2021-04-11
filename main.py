@@ -211,14 +211,25 @@ class Camera:
 # TODO: add simple shading
 # TODO: add rendering noise (e.g. randomness in character selection)
 class Renderer:
+    """Class for renderer to convert object data into a final image"""
     def __init__(self, rtype, dims, camera, glyphs, objects):
-        self.rtype = rtype
-        self.dims = dims
-        self.camera = camera
-        self.glyphs = glyphs
-        self.default_char = 'o'
-        self.empty = ' '
+        """Create a new renderer"""
+        self.rtype: str = rtype
+        """Renderer type; either `line`, `opengl`, or `canvas`"""
+        self.dims: Vector = dims
+        """The width and height of the scene"""
+        self.camera: Camera = camera
+        """A camera to store additional rendering properties"""
+
+        self.glyphs: GlyphSet = glyphs
+        """A list of (ASCII) characters that can be used for rendering the scene"""
+        self.default_char: str = 'o'
+        """Character used for rendering points when line data is not available"""
+        self.empty: str = ' '
+        """Character used to fill areas where no objects are present"""
+
         self.objects = objects
+        """List of objects for the renderer to display"""
         self.console = curses.initscr()
     def fetch_line_glyph(self, angle, height):
         return min(self.glyphs.symbols, key=(lambda x: abs(angle - x[1]) + abs(height - x[2])))[0]
