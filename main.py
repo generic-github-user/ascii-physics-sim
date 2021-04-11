@@ -92,6 +92,12 @@ class Solid(Geometry):
     def __init__(self):
         super().__init__(dimensions=3)
 
+# 4D geometry convenience subclass
+class Hypersolid(Geometry):
+    def __init__(self):
+        super().__init__(dimensions=4)
+
+
 
 # should this subclass Geometry instead?
 class Polygon(Shape):
