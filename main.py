@@ -524,60 +524,7 @@ Scalar = Tensor
 Vector = Tensor
 Vec = Tensor
 
-# Generic vector class
-# class Vec:
-#     def __init__(self, v=None, x=None, y=None, z=None, units=''):
-#         if v:
-#             self.x = v[0]
-#             self.y = v[1]
-#             # self.z = v[2]
-#         elif x and y:
-#             self.x = x
-#             self.y = y
-#         else:
-#             # print('Must provide a tuple of vector components or x and y values to initialize vector')
-#             self.x = 0
-#             self.y = 0
-#     # generate tuple automatically?
-#     def tuple(self):
-#         return (self.x, self.y)
-#     def rand(self, min, max, float=False):
-#         if float:
-#             rfunc = lambda x, y: random.uniform(x, y)
-#         else:
-#             rfunc = lambda x, y: random.randint(x, y)
-#
-#         self.x = rfunc(min, max)
-#         self.y = rfunc(min, max)
-#         return self
-#     def clone(self):
-#         # return Vec(x=self.x, y=self.y)
-#         return Vec(v=self.tuple())
-#     def op(self, b, f):
-#         if type(b) is Vec:
-#             self.x = f(self.x, b.x)
-#             self.y = f(self.y, b.y)
-#         elif type(b) is Scalar:
-#             self.x = f(self.x, b.n)
-#             self.y = f(self.y, b.n)
-#     def each(self, f):
-#         return Vec(v=tuple(f(n) for n in self.tuple()))
-#     def square(self):
-#         return self.each(lambda x: x ** 2)
-#     def reduce(self):
-#         return Scalar(sum(self.tuple()))
-#     def info(self):
-#         return '\n'.join(str(n) for n in [self.x, self.y])
-#     def print(self):
-#         text = self.info()
-#         print(text)
-#         return text
-#     # TODO: print each in chain
-#     def distance(self, b):
-#         # self.clone().sub(b).square().print()
-#         return self.clone().sub(b).square().reduce().root(2)
-#     def distance2(self, b):
-#         return self.clone().sub(b).square().root(2)
+# TODO: print each in chain
 
 class Object:
     """A single physical object, like a box or a tree"""
