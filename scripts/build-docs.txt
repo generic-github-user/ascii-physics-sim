@@ -1,0 +1,1 @@
+pdoc -o ./docs ./object.py ./renderer.py ./main.py ./material.py ./geometry.py ./helpers.py ./scene.py ./tensor.py
